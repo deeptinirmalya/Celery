@@ -27,7 +27,7 @@ def process_user_data(user_id, name):
 @celery.task(name="send_email") 
 def send_email(user_id):
     URL = "https://servicestack.pythonanywhere.com/send-email"
-    API_KEY = os.environ.get("API_KEY")
+    API_KEY = os.environ.get("EMAIL_API")
     RECIPIENT = "anything3628@gmail.com"
 
     payload = {

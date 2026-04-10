@@ -1,4 +1,4 @@
-dotenv
-celery[redis]
+celery
 redis
 requests
+flask
