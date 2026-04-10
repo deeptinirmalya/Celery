@@ -1,3 +1,4 @@
 dotenv
 celery[redis]
 redis
+requests
