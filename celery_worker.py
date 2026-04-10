@@ -33,7 +33,7 @@ celery.conf.update(
     broker_pool_limit=1,              
     
     task_acks_late=True,              
-    worker_prefetch_multiplier=1,     
+    worker_prefetch_multiplier=4,     
     broker_connection_retry_on_startup=True,
     
 
@@ -46,7 +46,7 @@ celery.conf.update(
 # --------------------------------
 
 
-# for now == python -m celery -A celery_worker:celery worker --loglevel=info --concurrency=1 --without-gossip --without-mingle --heartbeat-interval 120
+# for now == python -m celery -A celery_worker:celery worker --loglevel=info --concurrency=1 --without-gossip --without-mingle --heartbeat-interval 30
 # for leter == python -m celery -A celery_worker:celery worker --loglevel=info --concurrency=1 --without-gossip --without-mingle
 
 threading.Thread(target=run_flask, daemon=True).start()
