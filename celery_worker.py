@@ -16,20 +16,37 @@ def run_flask():
     port = int(os.environ.get("PORT", 10000))
     app.run(host='0.0.0.0', port=port)
 
+
+
+
+
 celery = Celery(
-    "worker",
-    broker=os.getenv("CELERY_REDIS_URL"),
-    include=["tasks"]
+    "mail_service",
+    broker=os.getenv("CLOUDAMQP_URL"),
+    include=['tasks']
 )
 
 celery.conf.update(
-    task_ignore_result=True,
-    task_store_errors_even_if_ignored=True,
-    broker_transport_options={'polling_interval': 4.0}
+
+    worker_send_task_events=False,    
+    task_send_sent_event=False,       
+    broker_pool_limit=1,              
+    
+    task_acks_late=True,              
+    worker_prefetch_multiplier=1,     
+    broker_connection_retry_on_startup=True,
+    
+
+    task_compression='gzip',          
+    task_ignore_result=True,          
 )
 
-    # broker_transport_options={'polling_interval': 5.0}
+
 
 # --------------------------------
+
+
+# for now == python -m celery -A celery_worker:celery worker --loglevel=info --concurrency=1 --without-gossip --without-mingle --heartbeat-interval 120
+# for leter == python -m celery -A celery_worker:celery worker --loglevel=info --concurrency=1 --without-gossip --without-mingle
 
 threading.Thread(target=run_flask, daemon=True).start()
