@@ -21,7 +21,7 @@ def send_email(email):
     URL = "https://servicestack.pythonanywhere.com/send-email"
     API_KEY = os.environ.get("EMAIL_API")
     RECIPIENT = str(email)
-    print("email:", RECIPIENT)
+    
 
     payload = {
         "subject": "🚀 Deployment Test from CELERY using REDIS",
@@ -40,6 +40,7 @@ def send_email(email):
         response = requests.post(URL, json=payload, headers=headers)
         result = f"Status {response.status_code}: {response.text}"
         print(result) # This will show up in your Railway Dashboard logs!
+        print("email:", RECIPIENT)
         
         if response.status_code == 202:
             return "✅ SUCCESS"
