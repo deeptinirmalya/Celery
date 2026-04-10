@@ -6,13 +6,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# print(os.environ.get("API_KEY"))
-
-
-
-
-
-
 @celery.task(name="process_user_data")
 def process_user_data(user_id, name):
     print(f"Starting work on: {user_id} == {name}")
@@ -24,16 +17,16 @@ def process_user_data(user_id, name):
 
 
 @celery.task(name="send_email") 
-def send_email(user_id):
+def send_email(email):
     URL = "https://servicestack.pythonanywhere.com/send-email"
     API_KEY = os.environ.get("EMAIL_API")
-    RECIPIENT = "anything3628@gmail.com"
+    RECIPIENT = str(email)
 
     payload = {
         "subject": "🚀 Deployment Test from CELERY using REDIS",
         "body": "<h1>Success!</h1><p>from CELERY using REDIS</p>",
         "receiver_email": RECIPIENT,
-        "authority_name": f"Deepti celery=={user_id}",
+        "authority_name": f"Deepti celery=={email}",
         "body_type": "html"
     }
 

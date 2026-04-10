@@ -6,10 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# 1. Setup a tiny Flask app
 app = Flask(__name__)
-
-
 
 @app.route('/')
 def health_check():
@@ -25,5 +22,12 @@ celery = Celery(
     include=["tasks"]
 )
 
+celery.conf.update(
+    task_ignore_result=True,
+    task_store_errors_even_if_ignored=True,
+    broker_transport_options={'polling_interval': 5.0}
+)
+
+# --------------------------------
 
 threading.Thread(target=run_flask, daemon=True).start()
