@@ -25,6 +25,7 @@ celery = Celery(
 celery.conf.update(
     task_ignore_result=True,
     task_store_errors_even_if_ignored=True,
+    broker_transport_options={'polling_interval': 2.0}
 )
 
     # broker_transport_options={'polling_interval': 5.0}

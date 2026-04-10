@@ -39,10 +39,9 @@ def send_email(email):
     try:
         response = requests.post(URL, json=payload, headers=headers)
         result = f"Status {response.status_code}: {response.text}"
-        print("email:", RECIPIENT)
         
         if response.status_code == 202:
-            return "✅ SUCCESS"
+            return f"✅ SUCCESS {result}"
         else:
             return f"❌ FAILED: {result}"
         
