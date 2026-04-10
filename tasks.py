@@ -21,6 +21,7 @@ def send_email(email):
     URL = "https://servicestack.pythonanywhere.com/send-email"
     API_KEY = os.environ.get("EMAIL_API")
     RECIPIENT = str(email)
+    print("email:", RECIPIENT)
 
     payload = {
         "subject": "🚀 Deployment Test from CELERY using REDIS",
