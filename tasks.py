@@ -16,8 +16,7 @@ load_dotenv()
 @celery.task(name="process_user_data")
 def process_user_data(user_id, name):
     print(f"Starting work on: {user_id} == {name}")
-    time.sleep(10) 
-    print("Work finished!")
+    print(f"work done on: {user_id} == {name}")
     return True
 
 
