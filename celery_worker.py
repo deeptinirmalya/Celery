@@ -27,10 +27,10 @@ celery = Celery(
 )
 
 celery.conf.update(
-    # --- SPEED & SCALING ---
-    broker_pool_limit=None,          
-    task_acks_late=False,             
-    worker_prefetch_multiplier=10,    
+    # --- RESOURCE SAVING ---
+    broker_pool_limit=1,                
+    task_acks_late=True,                
+    worker_prefetch_multiplier=1,       
     
     # --- EVENT SILENCING (Saves Requests) ---
     worker_send_task_events=False,    
@@ -38,7 +38,7 @@ celery.conf.update(
     
     # --- RELIABILITY ---
     broker_connection_retry_on_startup=True,
-    broker_heartbeat=30,              
+
     
     # --- OPTIMIZATION ---
     task_compression='gzip',          
@@ -50,7 +50,6 @@ celery.conf.update(
 # --------------------------------
 
 
-# command for run on render =  python -m celery -A celery_worker:celery worker --loglevel=info --concurrency=4 --without-gossip --without-mingle --heartbeat-interval 30
-
+# command for run on render =  python -m celery -A celery_worker:celery worker --loglevel=info --concurrency=1 --without-gossip --without-mingle --heartbeat-interval 120
 
 threading.Thread(target=run_flask, daemon=True).start()
